@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Q2 2026 Sales Pacing</title>
+<style>
+  html, body { margin:0; padding:0; background:#f9f9f7; }
+  @media (prefers-color-scheme: dark){ html, body { background:#0d0d0d; } }
+</style>
+</head>
+<body>
+<style>
+  .pacing-root{
+    --page:#f9f9f7; --surface:#fcfcfb; --surface-raised:#ffffff;
+    --ink:#0b0b0b; --ink-2:#52514e; --ink-3:#898781;
+    --grid:#e1e0d9; --baseline:#c3c2b7; --border:rgba(11,11,11,0.10);
+    --accent:#E8630A; --accent-ink:#ffffff; --navy:#16213E;
+    --good:#0ca30c; --good-deep:#086b08;
+    --warn:#c98200; --crit:#d03b3b;
+    --good-bg:rgba(12,163,12,0.10); --good-deep-bg:rgba(8,107,8,0.13);
+    --warn-bg:rgba(201,130,0,0.12); --crit-bg:rgba(208,59,59,0.10);
+    color-scheme: light;
+    font-family: 'Roboto', -apple-system, 'Segoe UI', Arial, sans-serif;
+    background: var(--page);
+    color: var(--ink);
+    padding: 28px clamp(16px,4vw,48px) 64px;
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+  @media (prefers-color-scheme: dark){
+    .pacing-root{
+      --page:#0d0d0d; --surface:#1a1a19; --surface-raised:#221f1c;
+      --ink:#ffffff; --ink-2:#c3c2b7; --ink-3:#898781;
+      --grid:#2c2c2a; --baseline:#383835; --border:rgba(255,255,255,0.10);
+      --accent:#FF7A3D; --accent-ink:#1a1004; --navy:#8A9BD6;
+      --good:#26c281; --good-deep:#5EE6A6;
+      --warn:#f5b942; --crit:#f0716d;
+      --good-bg:rgba(38,194,129,0.14); --good-deep-bg:rgba(94,230,166,0.16);
+      --warn-bg:rgba(245,185,66,0.14); --crit-bg:rgba(240,113,109,0.14);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] .pacing-root{
+    --page:#0d0d0d; --surface:#1a1a19; --surface-raised:#221f1c;
+    --ink:#ffffff; --ink-2:#c3c2b7; --ink-3:#898781;
+    --grid:#2c2c2a; --baseline:#383835; --border:rgba(255,255,255,0.10);
+    --accent:#FF7A3D; --accent-ink:#1a1004; --navy:#8A9BD6;
+    --good:#26c281; --good-deep:#5EE6A6;
+    --warn:#f5b942; --crit:#f0716d;
+    --good-bg:rgba(38,194,129,0.14); --good-deep-bg:rgba(94,230,166,0.16);
+    --warn-bg:rgba(245,185,66,0.14); --crit-bg:rgba(240,113,109,0.14);
+    color-scheme: dark;
+  }
+  :root[data-theme="light"] .pacing-root{
+    --page:#f9f9f7; --surface:#fcfcfb; --surface-raised:#ffffff;
+    --ink:#0b0b0b; --ink-2:#52514e; --ink-3:#898781;
+    --grid:#e1e0d9; --baseline:#c3c2b7; --border:rgba(11,11,11,0.10);
+    --accent:#E8630A; --accent-ink:#ffffff; --navy:#16213E;
+    --good:#0ca30c; --good-deep:#086b08;
+    --warn:#c98200; --crit:#d03b3b;
+    --good-bg:rgba(12,163,12,0.10); --good-deep-bg:rgba(8,107,8,0.13);
+    --warn-bg:rgba(201,130,0,0.12); --crit-bg:rgba(208,59,59,0.10);
+    color-scheme: light;
+  }
+
+  .pacing-root *{ box-sizing: border-box; }
+  .pacing-root h1, .pacing-root h2, .pacing-root h3 { text-wrap: balance; margin: 0; }
+  .pacing-root ::selection{ background: var(--accent); color: var(--accent-ink); }
+
+  /* ---------- header ---------- */
+  .p-eyebrow{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+    color: var(--accent); margin-bottom:10px;
+  }
+  .p-eyebrow::before{
+    content:""; width:8px; height:8px; border-radius:50%; background:var(--accent);
+  }
+  h1.p-title{ font-size: clamp(24px,3.4vw,34px); font-weight:900; letter-spacing:-0.01em; }
+  .p-sub{ margin-top:8px; color:var(--ink-2); font-size:15px; line-height:1.5; max-width:70ch; }
+  .p-sub b{ color:var(--ink); font-variant-numeric: tabular-nums; }
+
+  .p-callout{
+    margin-top:20px; padding:14px 18px; border-radius:10px;
+    background: var(--surface-raised); border:1px solid var(--border);
+    font-size:13.5px; line-height:1.6; color:var(--ink-2);
+  }
+  .p-callout b{ color:var(--ink); }
+  .p-callout .p-legend-row{
+    display:flex; flex-wrap:wrap; gap:14px; margin-top:10px;
+  }
+  .p-legend-chip{ display:flex; align-items:center; gap:7px; font-size:13px; color:var(--ink); }
+  .p-swatch{ width:12px; height:12px; border-radius:3px; flex:none; }
+
+  /* ---------- summary tiles ---------- */
+  .p-tiles{
+    display:grid; grid-template-columns: repeat(auto-fit,minmax(150px,1fr));
+    gap:10px; margin-top:26px;
+  }
+  .p-tile{
+    background:var(--surface-raised); border:1px solid var(--border); border-radius:12px;
+    padding:14px 16px;
+  }
+  .p-tile .p-tile-label{ font-size:11.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-3); }
+  .p-tile .p-tile-value{ font-size:24px; font-weight:800; margin-top:4px; font-variant-numeric: tabular-nums; }
+  .p-tile .p-tile-sub{ font-size:12px; color:var(--ink-2); margin-top:2px; font-variant-numeric: tabular-nums; }
+
+  .p-status-tiles{ display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+  .p-status-tile{
+    flex:1 1 130px; border-radius:12px; padding:12px 14px; cursor:pointer;
+    border:1.5px solid transparent; background:var(--surface-raised);
+    transition: transform .12s ease, border-color .12s ease;
+  }
+  .p-status-tile:hover{ transform: translateY(-1px); }
+  .p-status-tile.is-active{ border-color: currentColor; }
+  .p-status-tile .p-st-count{ font-size:22px; font-weight:900; font-variant-numeric: tabular-nums; }
+  .p-status-tile .p-st-label{ font-size:12px; font-weight:700; margin-top:2px; }
+  .p-status-tile.tier-superGreen{ background:var(--good-deep-bg); color:var(--good-deep); }
+  .p-status-tile.tier-green{ background:var(--good-bg); color:var(--good); }
+  .p-status-tile.tier-yellow{ background:var(--warn-bg); color:var(--warn); }
+  .p-status-tile.tier-red{ background:var(--crit-bg); color:var(--crit); }
+
+  /* ---------- controls ---------- */
+  .p-controls{
+    display:flex; gap:10px; align-items:center; margin-top:24px; flex-wrap:wrap;
+  }
+  .p-search{
+    flex:1 1 220px; border:1px solid var(--border); background:var(--surface-raised);
+    color:var(--ink); border-radius:8px; padding:9px 12px; font-size:14px; font-family:inherit;
+  }
+  .p-search:focus{ outline:2px solid var(--accent); outline-offset:1px; }
+  .p-viewtoggle{ display:flex; border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+  .p-viewtoggle button{
+    font-family:inherit; font-size:13px; font-weight:600; padding:9px 14px; border:none;
+    background:var(--surface-raised); color:var(--ink-2); cursor:pointer;
+  }
+  .p-viewtoggle button.is-on{ background:var(--accent); color:var(--accent-ink); }
+
+  /* ---------- bar chart ---------- */
+  .p-chart{ margin-top:18px; }
+  .p-row{
+    display:grid; grid-template-columns: 168px 1fr 74px; align-items:center;
+    gap:12px; padding:6px 0; border-bottom:1px solid var(--grid);
+    position:relative;
+  }
+  .p-row:last-child{ border-bottom:none; }
+  .p-row .p-name{
+    font-size:13.5px; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+  }
+  .p-track{
+    position:relative; height:22px; background:var(--grid); border-radius:5px; overflow:visible;
+  }
+  .p-target-line{
+    position:absolute; top:-3px; bottom:-3px; width:2px; background:var(--ink);
+    opacity:.55; left:calc(100% / 1.5);
+  }
+  .p-bar{
+    position:absolute; top:0; bottom:0; left:0; border-radius:5px;
+    min-width:3px;
+  }
+  .p-bar.tier-superGreen{ background:var(--good-deep); }
+  .p-bar.tier-green{ background:var(--good); }
+  .p-bar.tier-yellow{ background:var(--warn); }
+  .p-bar.tier-red{ background:var(--crit); }
+  .p-pct{
+    font-size:13px; font-weight:700; text-align:right; font-variant-numeric: tabular-nums;
+  }
+  .p-row[data-tier="superGreen"] .p-pct{ color:var(--good-deep); }
+  .p-row[data-tier="green"] .p-pct{ color:var(--good); }
+  .p-row[data-tier="yellow"] .p-pct{ color:var(--warn); }
+  .p-row[data-tier="red"] .p-pct{ color:var(--crit); }
+
+  .p-tip{
+    position:absolute; z-index:5; bottom:calc(100% + 8px); left:0;
+    background:var(--ink); color:var(--page); border-radius:8px; padding:10px 12px;
+    font-size:12.5px; line-height:1.55; width:max-content; max-width:280px;
+    box-shadow:0 8px 20px rgba(0,0,0,.25);
+    opacity:0; pointer-events:none; transform:translateY(4px);
+    transition:opacity .12s ease, transform .12s ease;
+  }
+  .p-row:hover .p-tip, .p-row:focus-within .p-tip{ opacity:1; transform:translateY(0); pointer-events:auto; }
+  .p-tip b{ font-variant-numeric: tabular-nums; }
+  .p-tip .p-tip-tier{ display:inline-block; margin-top:4px; font-weight:700; }
+
+  .p-chart-axis{
+    display:grid; grid-template-columns: 168px 1fr 74px; gap:12px; margin-top:6px;
+    font-size:11px; color:var(--ink-3);
+  }
+  .p-chart-axis .p-axis-track{ position:relative; height:14px; }
+  .p-chart-axis .p-axis-tick{ position:absolute; top:0; transform:translateX(-50%); }
+
+  .p-hidden{ display:none !important; }
+
+  /* ---------- table view ---------- */
+  .p-table-wrap{ margin-top:18px; overflow-x:auto; border:1px solid var(--border); border-radius:10px; }
+  table.p-table{ width:100%; border-collapse:collapse; font-size:13px; min-width:760px; }
+  table.p-table th{
+    text-align:left; font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
+    color:var(--ink-3); padding:10px 14px; border-bottom:1px solid var(--grid); background:var(--surface);
+    position:sticky; top:0;
+  }
+  table.p-table td{
+    padding:9px 14px; border-bottom:1px solid var(--grid); font-variant-numeric: tabular-nums;
+    background:var(--surface-raised);
+  }
+  table.p-table td.p-td-name{ font-variant-numeric: normal; font-weight:600; }
+  table.p-table tr:last-child td{ border-bottom:none; }
+  .p-chip{
+    display:inline-flex; align-items:center; gap:5px; font-size:11.5px; font-weight:700;
+    padding:2px 8px; border-radius:999px;
+  }
+  .p-chip.tier-superGreen{ background:var(--good-deep-bg); color:var(--good-deep); }
+  .p-chip.tier-green{ background:var(--good-bg); color:var(--good); }
+  .p-chip.tier-yellow{ background:var(--warn-bg); color:var(--warn); }
+  .p-chip.tier-red{ background:var(--crit-bg); color:var(--crit); }
+
+  /* ---------- footer ---------- */
+  .p-foot{ margin-top:28px; font-size:12px; color:var(--ink-3); line-height:1.6; }
+  .p-foot a{ color: inherit; }
+
+  @media (max-width: 620px){
+    .p-row{ grid-template-columns: 108px 1fr 54px; }
+    .p-chart-axis{ grid-template-columns: 108px 1fr 54px; }
+  }
+</style>
+
+<div class="pacing-root">
+
+  <div class="p-eyebrow">Sales Dashboard · EMMA V4</div>
+  <h1 class="p-title">Individual Sales Pacing — Q2 2026</h1>
+  <p class="p-sub">
+    Period <b>May 1 – Jul 31, 2026</b> · today is <b>Jul 16</b> — day <b>77 of 92</b>
+    (<b>83.7%</b> of the quarter elapsed) · 35 quota-carrying reps.
+  </p>
+
+  <div class="p-callout">
+    <b>How the color is decided</b> — bar length is each rep's <b>% of Q2 target booked so far</b>.
+    Color is a <i>projection</i>: their average weekly booking pace over the last 11 weeks (May 1–Jul 16),
+    compared against the weekly pace they'd still need for the final 2 weeks (Jul 17–31) to close the gap.
+    <div class="p-legend-row">
+      <span class="p-legend-chip"><span class="p-swatch" style="background:var(--good-deep)"></span>Super Green — already hit target</span>
+      <span class="p-legend-chip"><span class="p-swatch" style="background:var(--good)"></span>Green — pace clears what's needed</span>
+      <span class="p-legend-chip"><span class="p-swatch" style="background:var(--warn)"></span>Yellow — behind, but within reach</span>
+      <span class="p-legend-chip"><span class="p-swatch" style="background:var(--crit)"></span>Red — pace falls well short, needs attention now</span>
+    </div>
+  </div>
+
+  <div class="p-tiles">
+    <div class="p-tile">
+      <div class="p-tile-label">Company Booked</div>
+      <div class="p-tile-value">$7.31M</div>
+      <div class="p-tile-sub">of $8.93M target · 81.9%</div>
+    </div>
+    <div class="p-tile">
+      <div class="p-tile-label">Your Team Booked</div>
+      <div class="p-tile-value">$6.06M</div>
+      <div class="p-tile-sub">of $7.41M target · 81.8%</div>
+    </div>
+    <div class="p-tile">
+      <div class="p-tile-label">Cancellation Rate</div>
+      <div class="p-tile-value">16.5%</div>
+      <div class="p-tile-sub">team, booking-date basis</div>
+    </div>
+    <div class="p-tile">
+      <div class="p-tile-label">Reps Behind Pace</div>
+      <div class="p-tile-value" id="p-behind-count">–</div>
+      <div class="p-tile-sub">yellow + red, of 35</div>
+    </div>
+  </div>
+
+  <div class="p-status-tiles" id="p-status-tiles"></div>
+
+  <div class="p-controls">
+    <input class="p-search" id="p-search" type="text" placeholder="Filter by rep name…">
+    <div class="p-viewtoggle">
+      <button id="p-view-chart" class="is-on">Chart</button>
+      <button id="p-view-table">Table</button>
+    </div>
+  </div>
+
+  <div class="p-chart-axis">
+    <div></div>
+    <div class="p-axis-track">
+      <span class="p-axis-tick" style="left:0%">0%</span>
+      <span class="p-axis-tick" style="left:33.3%">50%</span>
+      <span class="p-axis-tick" style="left:66.6%">100%</span>
+      <span class="p-axis-tick" style="left:100%">150%</span>
+    </div>
+    <div></div>
+  </div>
+  <div class="p-chart" id="p-chart"></div>
+
+  <div class="p-table-wrap p-hidden" id="p-table-wrap">
+    <table class="p-table">
+      <thead>
+        <tr>
+          <th>Sales Rep</th><th>Booked</th><th>Target</th><th>% Target</th>
+          <th>Needed / wk (final 2 wks)</th><th>Avg pace / wk (last 11 wks)</th><th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="p-table-body"></tbody>
+    </table>
+  </div>
+
+  <div class="p-foot">
+    <b>Excluded from ranking</b> — no real individual quota: EMMA System (auto-assigned leads, 82.5% to target),
+    Amanda Ware, Brian Herzig, Donna Carrillo, Nhel Banayad ($0 target each), Ralph Bustillo (no booked/target data on file — worth checking if inactive).
+    <br>Pulled from EMMA's Sales Report, May 1 – Jul 31, 2026 range, on Jul 16, 2026.
+    <br>This link is unlisted (noindex) but not access-restricted — anyone with the URL can view it. Please don't forward outside Roundtable leadership.
+  </div>
+
+</div>
+
+<script>
+(function(){
+  var reps = [
+    ["Nicole Tolete", 265355.50, 341250.00, 37947.25],
+    ["Lukas Konrad", 140992.50, 222250.00, 40628.75],
+    ["Joanna Ballon", 260999.50, 341250.00, 40125.25],
+    ["Chris Beattie", 98358.50, 120750.00, 11195.75],
+    ["Jules Nicolas", 612506.45, 525000.00, -43753.22],
+    ["Nicholas Dagel", 151232.50, 222250.00, 35508.75],
+    ["Danah 2Celestial", 386166.62, 525000.00, 69416.69],
+    ["Amy Arbasa", 361277.00, 393750.00, 16236.50],
+    ["Arden 2Asilo", 245040.00, 341250.00, 48105.00],
+    ["Sergio Buenrostro", 115054.00, 120750.00, 2848.00],
+    ["Khevan Dueck", 72143.50, 120750.00, 24303.25],
+    ["Jespah Lara", 188731.75, 393750.00, 102509.13],
+    ["Chris Anderson", 114353.50, 120750.00, 3198.25],
+    ["Zachary Krodel", 259938.00, 222250.00, -18844.00],
+    ["Zhang Pammit", 460484.50, 525000.00, 32257.75],
+    ["Hector Zavala", 156046.50, 131250.00, -12398.25],
+    ["Frank Williams", 86884.00, 120750.00, 16933.00],
+    ["Erik Orama", 129861.50, 222250.00, 46194.25],
+    ["Jeline 2Lavarias", 237665.50, 341250.00, 51792.25],
+    ["Joel Villatoro", 234805.00, 222250.00, -6277.50],
+    ["Landon Vaughan", 137975.50, 201250.00, 31637.25],
+    ["Daniel Behseresht", 247358.50, 222250.00, -12554.25],
+    ["Joseph Mcreynolds", 70814.50, 59500.00, -5657.25],
+    ["Grant Hardison", 86231.50, 120750.00, 17259.25],
+    ["Alexander Tran", 150570.00, 131250.00, -9660.00],
+    ["Calvin Hughes", 169291.75, 120750.00, -24270.88],
+    ["Rance Pope", 110140.56, 89250.00, -10445.28],
+    ["Therese Ablang", 82913.00, 80500.00, -1206.50],
+    ["Garrison Cobe", 154685.00, 222250.00, 33782.50],
+    ["Jack Davis", 130383.50, 145250.00, 7433.25],
+    ["Dustin Street", 51441.50, 120750.00, 34654.25],
+    ["Cameron Klepac", 54268.00, 89250.00, 17491.00],
+    ["Shane Heaberlin", 12458.00, 19250.00, 3396.00],
+    ["Steven Anderson", 5866.00, 19250.00, 6692.00],
+    ["Jevic 3Lazanas", 2191.00, 87500.00, 42654.50]
+  ];
+
+  var WEEKS_ELAPSED = 11; // May 1 -> Jul 16 = 77 days
+  var tierRank = { red:0, yellow:1, green:2, superGreen:3 };
+  var tierLabel = { red:"Red — not close", yellow:"Yellow — close, needs to accelerate", green:"Green — pace on track", superGreen:"Super Green — target already hit" };
+
+  var data = reps.map(function(r){
+    var name = r[0], booked = r[1], target = r[2], neededPerWeek = r[3];
+    var pctTarget = target > 0 ? (booked / target * 100) : NaN;
+    var avgPace = booked / WEEKS_ELAPSED;
+    var tier;
+    if (booked >= target) {
+      tier = "superGreen";
+    } else {
+      var ratio = avgPace / neededPerWeek;
+      if (ratio >= 1) tier = "green";
+      else if (ratio >= 0.5) tier = "yellow";
+      else tier = "red";
+    }
+    return { name: name, booked: booked, target: target, neededPerWeek: neededPerWeek, avgPace: avgPace, pctTarget: pctTarget, tier: tier };
+  });
+
+  // sort: red -> yellow -> green -> superGreen ; within tier, worst (lowest %) first
+  data.sort(function(a,b){
+    if (tierRank[a.tier] !== tierRank[b.tier]) return tierRank[a.tier] - tierRank[b.tier];
+    return a.pctTarget - b.pctTarget;
+  });
+
+  function money(n){
+    var sign = n < 0 ? "-" : "";
+    n = Math.abs(n);
+    return sign + "$" + n.toLocaleString("en-US", {maximumFractionDigits:0});
+  }
+
+  var counts = { red:0, yellow:0, green:0, superGreen:0 };
+  data.forEach(function(d){ counts[d.tier]++; });
+  document.getElementById("p-behind-count").textContent = (counts.red + counts.yellow) + " of 35";
+
+  var tileMeta = [
+    { key:"superGreen", label:"Super Green" },
+    { key:"green", label:"Green" },
+    { key:"yellow", label:"Yellow" },
+    { key:"red", label:"Red" }
+  ];
+  var tilesEl = document.getElementById("p-status-tiles");
+  tileMeta.forEach(function(t){
+    var el = document.createElement("div");
+    el.className = "p-status-tile tier-" + t.key + " is-active";
+    el.dataset.tier = t.key;
+    el.innerHTML = '<div class="p-st-count">' + counts[t.key] + '</div><div class="p-st-label">' + t.label + '</div>';
+    el.addEventListener("click", function(){
+      el.classList.toggle("is-active");
+      applyFilters();
+    });
+    tilesEl.appendChild(el);
+  });
+
+  var chartEl = document.getElementById("p-chart");
+  var tableBodyEl = document.getElementById("p-table-body");
+
+  data.forEach(function(d, i){
+    var barWidth = Math.min(d.pctTarget / 150 * 100, 100);
+
+    var row = document.createElement("div");
+    row.className = "p-row";
+    row.dataset.tier = d.tier;
+    row.dataset.name = d.name.toLowerCase();
+    row.tabIndex = 0;
+
+    var tipHtml = "<b>" + d.name + "</b><br>" +
+      "Booked: <b>" + money(d.booked) + "</b> / Target: <b>" + money(d.target) + "</b><br>" +
+      "Avg pace, last 11 wks: <b>" + money(d.avgPace) + "</b>/wk<br>" +
+      (d.neededPerWeek > 0
+        ? "Needed, final 2 wks: <b>" + money(d.neededPerWeek) + "</b>/wk"
+        : "Already " + money(Math.abs(d.neededPerWeek) * 2) + " past target") +
+      "<span class='p-tip-tier'>" + tierLabel[d.tier] + "</span>";
+
+    row.innerHTML =
+      '<div class="p-name">' + d.name + '</div>' +
+      '<div class="p-track">' +
+        '<div class="p-target-line"></div>' +
+        '<div class="p-bar tier-' + d.tier + '" style="width:' + barWidth + '%"></div>' +
+        '<div class="p-tip">' + tipHtml + '</div>' +
+      '</div>' +
+      '<div class="p-pct">' + d.pctTarget.toFixed(1) + '%</div>';
+
+    chartEl.appendChild(row);
+
+    var tr = document.createElement("tr");
+    tr.dataset.tier = d.tier;
+    tr.dataset.name = d.name.toLowerCase();
+    tr.innerHTML =
+      '<td class="p-td-name">' + d.name + '</td>' +
+      '<td>' + money(d.booked) + '</td>' +
+      '<td>' + money(d.target) + '</td>' +
+      '<td>' + d.pctTarget.toFixed(1) + '%</td>' +
+      '<td>' + (d.neededPerWeek > 0 ? money(d.neededPerWeek) : "—") + '</td>' +
+      '<td>' + money(d.avgPace) + '</td>' +
+      '<td><span class="p-chip tier-' + d.tier + '">' + (d.tier === "superGreen" ? "Hit" : d.tier[0].toUpperCase() + d.tier.slice(1)) + '</span></td>';
+    tableBodyEl.appendChild(tr);
+  });
+
+  function activeTiers(){
+    return Array.prototype.map.call(tilesEl.querySelectorAll(".p-status-tile.is-active"), function(el){ return el.dataset.tier; });
+  }
+
+  function applyFilters(){
+    var active = activeTiers();
+    var q = document.getElementById("p-search").value.trim().toLowerCase();
+    document.querySelectorAll(".p-row, table.p-table tbody tr").forEach(function(el){
+      var show = active.indexOf(el.dataset.tier) !== -1 && el.dataset.name.indexOf(q) !== -1;
+      el.classList.toggle("p-hidden", !show);
+    });
+  }
+  document.getElementById("p-search").addEventListener("input", applyFilters);
+
+  var chartBtn = document.getElementById("p-view-chart");
+  var tableBtn = document.getElementById("p-view-table");
+  var chartWrap = document.getElementById("p-chart");
+  var axisWrap = document.querySelector(".p-chart-axis");
+  var tableWrap = document.getElementById("p-table-wrap");
+  chartBtn.addEventListener("click", function(){
+    chartBtn.classList.add("is-on"); tableBtn.classList.remove("is-on");
+    chartWrap.classList.remove("p-hidden"); axisWrap.classList.remove("p-hidden");
+    tableWrap.classList.add("p-hidden");
+  });
+  tableBtn.addEventListener("click", function(){
+    tableBtn.classList.add("is-on"); chartBtn.classList.remove("is-on");
+    tableWrap.classList.remove("p-hidden");
+    chartWrap.classList.add("p-hidden"); axisWrap.classList.add("p-hidden");
+  });
+})();
+</script>
+</body>
+</html>
