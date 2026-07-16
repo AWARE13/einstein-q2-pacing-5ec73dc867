@@ -138,6 +138,21 @@
   }
   .p-viewtoggle button.is-on{ background:var(--accent); color:var(--accent-ink); }
 
+  .p-regiontoggle{ display:flex; border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+  .p-regiontoggle button{
+    font-family:inherit; font-size:13px; font-weight:600; padding:9px 14px; border:none;
+    background:var(--surface-raised); color:var(--ink-2); cursor:pointer;
+  }
+  .p-regiontoggle button.is-on{ background:var(--navy); color:#ffffff; }
+
+  .p-region-summary{
+    display:none; margin-top:14px; padding:10px 16px; border-radius:10px;
+    background: var(--surface-raised); border:1px solid var(--border);
+    font-size:13px; color:var(--ink-2);
+  }
+  .p-region-summary.is-visible{ display:block; }
+  .p-region-summary b{ color:var(--ink); font-variant-numeric: tabular-nums; }
+
   /* ---------- bar chart ---------- */
   .p-chart{ margin-top:18px; }
   .p-row{
@@ -273,12 +288,19 @@
   <div class="p-status-tiles" id="p-status-tiles"></div>
 
   <div class="p-controls">
-    <input class="p-search" id="p-search" type="text" placeholder="Filter by rep name…">
+    <div class="p-regiontoggle" id="p-region-toggle">
+      <button data-region="all" class="is-on">All Regions</button>
+      <button data-region="CTX">CTX</button>
+      <button data-region="DFWT">DFWT</button>
+      <button data-region="CET">CET</button>
+    </div>
     <div class="p-viewtoggle">
       <button id="p-view-chart" class="is-on">Chart</button>
       <button id="p-view-table">Table</button>
     </div>
   </div>
+
+  <div class="p-region-summary" id="p-region-summary"></div>
 
   <div class="p-chart-axis">
     <div></div>
@@ -307,8 +329,8 @@
   <div class="p-foot">
     <b>Excluded from ranking</b> — no real individual quota: EMMA System (auto-assigned leads, 82.5% to target),
     Amanda Ware, Brian Herzig, Donna Carrillo, Nhel Banayad ($0 target each), Ralph Bustillo (no booked/target data on file — worth checking if inactive).
+    <br><b>No region assigned yet:</b> Joseph Mcreynolds (still shows in "All Regions", excluded from CTX/DFWT/CET). Brianne Newbro and Chauany Shivers will join CET once they have bookings — not yet visible in EMMA's Sales Report.
     <br>Pulled from EMMA's Sales Report, May 1 – Jul 31, 2026 range, on Jul 16, 2026.
-    <br>This link is unlisted (noindex) but not access-restricted — anyone with the URL can view it. Please don't forward outside Roundtable leadership.
   </div>
 
 </div>
@@ -316,41 +338,41 @@
 <script>
 (function(){
   var reps = [
-    ["Nicole Tolete", 265355.50, 341250.00, 37947.25],
-    ["Lukas Konrad", 140992.50, 222250.00, 40628.75],
-    ["Joanna Ballon", 260999.50, 341250.00, 40125.25],
-    ["Chris Beattie", 98358.50, 120750.00, 11195.75],
-    ["Jules Nicolas", 612506.45, 525000.00, -43753.22],
-    ["Nicholas Dagel", 151232.50, 222250.00, 35508.75],
-    ["Danah 2Celestial", 386166.62, 525000.00, 69416.69],
-    ["Amy Arbasa", 361277.00, 393750.00, 16236.50],
-    ["Arden 2Asilo", 245040.00, 341250.00, 48105.00],
-    ["Sergio Buenrostro", 115054.00, 120750.00, 2848.00],
-    ["Khevan Dueck", 72143.50, 120750.00, 24303.25],
-    ["Jespah Lara", 188731.75, 393750.00, 102509.13],
-    ["Chris Anderson", 114353.50, 120750.00, 3198.25],
-    ["Zachary Krodel", 259938.00, 222250.00, -18844.00],
-    ["Zhang Pammit", 460484.50, 525000.00, 32257.75],
-    ["Hector Zavala", 156046.50, 131250.00, -12398.25],
-    ["Frank Williams", 86884.00, 120750.00, 16933.00],
-    ["Erik Orama", 129861.50, 222250.00, 46194.25],
-    ["Jeline 2Lavarias", 237665.50, 341250.00, 51792.25],
-    ["Joel Villatoro", 234805.00, 222250.00, -6277.50],
-    ["Landon Vaughan", 137975.50, 201250.00, 31637.25],
-    ["Daniel Behseresht", 247358.50, 222250.00, -12554.25],
-    ["Joseph Mcreynolds", 70814.50, 59500.00, -5657.25],
-    ["Grant Hardison", 86231.50, 120750.00, 17259.25],
-    ["Alexander Tran", 150570.00, 131250.00, -9660.00],
-    ["Calvin Hughes", 169291.75, 120750.00, -24270.88],
-    ["Rance Pope", 110140.56, 89250.00, -10445.28],
-    ["Therese Ablang", 82913.00, 80500.00, -1206.50],
-    ["Garrison Cobe", 154685.00, 222250.00, 33782.50],
-    ["Jack Davis", 130383.50, 145250.00, 7433.25],
-    ["Dustin Street", 51441.50, 120750.00, 34654.25],
-    ["Cameron Klepac", 54268.00, 89250.00, 17491.00],
-    ["Shane Heaberlin", 12458.00, 19250.00, 3396.00],
-    ["Steven Anderson", 5866.00, 19250.00, 6692.00],
-    ["Jevic 3Lazanas", 2191.00, 87500.00, 42654.50]
+    ["Nicole Tolete", 265355.50, 341250.00, 37947.25, "CET"],
+    ["Lukas Konrad", 140992.50, 222250.00, 40628.75, "CTX"],
+    ["Joanna Ballon", 260999.50, 341250.00, 40125.25, "CET"],
+    ["Chris Beattie", 98358.50, 120750.00, 11195.75, "DFWT"],
+    ["Jules Nicolas", 612506.45, 525000.00, -43753.22, "CET"],
+    ["Nicholas Dagel", 151232.50, 222250.00, 35508.75, "CTX"],
+    ["Danah 2Celestial", 386166.62, 525000.00, 69416.69, "CET"],
+    ["Amy Arbasa", 361277.00, 393750.00, 16236.50, "CET"],
+    ["Arden 2Asilo", 245040.00, 341250.00, 48105.00, "CET"],
+    ["Sergio Buenrostro", 115054.00, 120750.00, 2848.00, "CTX"],
+    ["Khevan Dueck", 72143.50, 120750.00, 24303.25, "DFWT"],
+    ["Jespah Lara", 188731.75, 393750.00, 102509.13, "CTX"],
+    ["Chris Anderson", 114353.50, 120750.00, 3198.25, "CTX"],
+    ["Zachary Krodel", 259938.00, 222250.00, -18844.00, "DFWT"],
+    ["Zhang Pammit", 460484.50, 525000.00, 32257.75, "CET"],
+    ["Hector Zavala", 156046.50, 131250.00, -12398.25, "CTX"],
+    ["Frank Williams", 86884.00, 120750.00, 16933.00, "CTX"],
+    ["Erik Orama", 129861.50, 222250.00, 46194.25, "DFWT"],
+    ["Jeline 2Lavarias", 237665.50, 341250.00, 51792.25, "CET"],
+    ["Joel Villatoro", 234805.00, 222250.00, -6277.50, "CTX"],
+    ["Landon Vaughan", 137975.50, 201250.00, 31637.25, "DFWT"],
+    ["Daniel Behseresht", 247358.50, 222250.00, -12554.25, "CTX"],
+    ["Joseph Mcreynolds", 70814.50, 59500.00, -5657.25, ""],
+    ["Grant Hardison", 86231.50, 120750.00, 17259.25, "DFWT"],
+    ["Alexander Tran", 150570.00, 131250.00, -9660.00, "CTX"],
+    ["Calvin Hughes", 169291.75, 120750.00, -24270.88, "CTX"],
+    ["Rance Pope", 110140.56, 89250.00, -10445.28, "CTX"],
+    ["Therese Ablang", 82913.00, 80500.00, -1206.50, "CET"],
+    ["Garrison Cobe", 154685.00, 222250.00, 33782.50, "CTX"],
+    ["Jack Davis", 130383.50, 145250.00, 7433.25, "DFWT"],
+    ["Dustin Street", 51441.50, 120750.00, 34654.25, "CTX"],
+    ["Cameron Klepac", 54268.00, 89250.00, 17491.00, "CTX"],
+    ["Shane Heaberlin", 12458.00, 19250.00, 3396.00, "DFWT"],
+    ["Steven Anderson", 5866.00, 19250.00, 6692.00, "DFWT"],
+    ["Jevic 3Lazanas", 2191.00, 87500.00, 42654.50, "CET"]
   ];
 
   var WEEKS_ELAPSED = 11; // May 1 -> Jul 16 = 77 days
@@ -358,7 +380,7 @@
   var tierLabel = { red:"Red — not close", yellow:"Yellow — close, needs to accelerate", green:"Green — pace on track", superGreen:"Super Green — target already hit" };
 
   var data = reps.map(function(r){
-    var name = r[0], booked = r[1], target = r[2], neededPerWeek = r[3];
+    var name = r[0], booked = r[1], target = r[2], neededPerWeek = r[3], region = r[4] || "";
     var pctTarget = target > 0 ? (booked / target * 100) : NaN;
     var avgPace = booked / WEEKS_ELAPSED;
     var tier;
@@ -370,7 +392,7 @@
       else if (ratio >= 0.5) tier = "yellow";
       else tier = "red";
     }
-    return { name: name, booked: booked, target: target, neededPerWeek: neededPerWeek, avgPace: avgPace, pctTarget: pctTarget, tier: tier };
+    return { name: name, booked: booked, target: target, neededPerWeek: neededPerWeek, avgPace: avgPace, pctTarget: pctTarget, tier: tier, region: region };
   });
 
   // sort: red -> yellow -> green -> superGreen ; within tier, worst (lowest %) first
@@ -417,7 +439,7 @@
     var row = document.createElement("div");
     row.className = "p-row";
     row.dataset.tier = d.tier;
-    row.dataset.name = d.name.toLowerCase();
+    row.dataset.region = d.region;
     row.tabIndex = 0;
 
     var tipHtml = "<b>" + d.name + "</b><br>" +
@@ -441,9 +463,9 @@
 
     var tr = document.createElement("tr");
     tr.dataset.tier = d.tier;
-    tr.dataset.name = d.name.toLowerCase();
+    tr.dataset.region = d.region;
     tr.innerHTML =
-      '<td class="p-td-name">' + d.name + '</td>' +
+      '<td class="p-td-name">' + d.name + (d.region ? '' : ' <span style="color:var(--ink-3);font-weight:400;">(no region)</span>') + '</td>' +
       '<td>' + money(d.booked) + '</td>' +
       '<td>' + money(d.target) + '</td>' +
       '<td>' + d.pctTarget.toFixed(1) + '%</td>' +
@@ -457,15 +479,42 @@
     return Array.prototype.map.call(tilesEl.querySelectorAll(".p-status-tile.is-active"), function(el){ return el.dataset.tier; });
   }
 
+  var regionToggleEl = document.getElementById("p-region-toggle");
+  var regionSummaryEl = document.getElementById("p-region-summary");
+  var currentRegion = "all";
+
+  function updateRegionSummary(){
+    if (currentRegion === "all") {
+      regionSummaryEl.classList.remove("is-visible");
+      return;
+    }
+    var reps = data.filter(function(d){ return d.region === currentRegion; });
+    var booked = reps.reduce(function(s,d){ return s + d.booked; }, 0);
+    var target = reps.reduce(function(s,d){ return s + d.target; }, 0);
+    var pct = target > 0 ? (booked / target * 100) : 0;
+    regionSummaryEl.innerHTML = "<b>" + currentRegion + "</b> — " + reps.length + " reps · " +
+      money(booked) + " booked of " + money(target) + " target · <b>" + pct.toFixed(1) + "%</b> to region target";
+    regionSummaryEl.classList.add("is-visible");
+  }
+
   function applyFilters(){
     var active = activeTiers();
-    var q = document.getElementById("p-search").value.trim().toLowerCase();
     document.querySelectorAll(".p-row, table.p-table tbody tr").forEach(function(el){
-      var show = active.indexOf(el.dataset.tier) !== -1 && el.dataset.name.indexOf(q) !== -1;
+      var regionMatch = currentRegion === "all" || el.dataset.region === currentRegion;
+      var show = active.indexOf(el.dataset.tier) !== -1 && regionMatch;
       el.classList.toggle("p-hidden", !show);
     });
+    updateRegionSummary();
   }
-  document.getElementById("p-search").addEventListener("input", applyFilters);
+
+  regionToggleEl.querySelectorAll("button").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      regionToggleEl.querySelectorAll("button").forEach(function(b){ b.classList.remove("is-on"); });
+      btn.classList.add("is-on");
+      currentRegion = btn.dataset.region;
+      applyFilters();
+    });
+  });
 
   var chartBtn = document.getElementById("p-view-chart");
   var tableBtn = document.getElementById("p-view-table");
