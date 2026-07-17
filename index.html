@@ -246,14 +246,14 @@
   <div class="p-eyebrow">Sales Dashboard · EMMA V4</div>
   <h1 class="p-title">Individual Sales Pacing — Q2 2026</h1>
   <p class="p-sub">
-    Period <b>May 1 – Jul 31, 2026</b> · today is <b>Jul 16</b> — day <b>77 of 92</b>
-    (<b>83.7%</b> of the quarter elapsed) · 35 quota-carrying reps.
+    Period <b>May 1 – Jul 31, 2026</b> · today is <b>Jul 17</b> — day <b>78 of 92</b>
+    (<b>84.8%</b> of the quarter elapsed) · 37 quota-carrying reps.
   </p>
 
   <div class="p-callout">
     <b>How the color is decided</b> — bar length is each rep's <b>% of Q2 target booked so far</b>.
-    Color is a <i>projection</i>: their average weekly booking pace over the last 11 weeks (May 1–Jul 16),
-    compared against the weekly pace they'd still need for the final 2 weeks (Jul 17–31) to close the gap.
+    Color is a <i>projection</i>: their average weekly booking pace over the days elapsed so far (May 1–Jul 17),
+    compared against the weekly pace they'd still need for the remaining days (Jul 18–31) to close the gap.
     <div class="p-legend-row">
       <span class="p-legend-chip"><span class="p-swatch" style="background:var(--good-deep)"></span>Super Green — already hit target</span>
       <span class="p-legend-chip"><span class="p-swatch" style="background:var(--good)"></span>Green — pace clears what's needed</span>
@@ -265,23 +265,23 @@
   <div class="p-tiles">
     <div class="p-tile">
       <div class="p-tile-label">Company Booked</div>
-      <div class="p-tile-value">$7.31M</div>
-      <div class="p-tile-sub">of $8.93M target · 81.9%</div>
+      <div class="p-tile-value">$7.43M</div>
+      <div class="p-tile-sub">of $8.93M target · 83.2%</div>
     </div>
     <div class="p-tile">
       <div class="p-tile-label">Your Team Booked</div>
-      <div class="p-tile-value">$6.06M</div>
-      <div class="p-tile-sub">of $7.41M target · 81.8%</div>
+      <div class="p-tile-value">$6.17M</div>
+      <div class="p-tile-sub">of $7.41M target · 83.2%</div>
     </div>
     <div class="p-tile">
       <div class="p-tile-label">Cancellation Rate</div>
-      <div class="p-tile-value">16.5%</div>
+      <div class="p-tile-value">16.7%</div>
       <div class="p-tile-sub">team, booking-date basis</div>
     </div>
     <div class="p-tile">
       <div class="p-tile-label">Reps Behind Pace</div>
       <div class="p-tile-value" id="p-behind-count">–</div>
-      <div class="p-tile-sub">yellow + red, of 35</div>
+      <div class="p-tile-sub">yellow + red, of 37</div>
     </div>
   </div>
 
@@ -319,7 +319,7 @@
       <thead>
         <tr>
           <th>Sales Rep</th><th>Booked</th><th>Target</th><th>% Target</th>
-          <th>Needed / wk (final 2 wks)</th><th>Avg pace / wk (last 11 wks)</th><th>Status</th>
+          <th>Needed / wk (remaining days)</th><th>Avg pace / wk (days elapsed)</th><th>Status</th>
         </tr>
       </thead>
       <tbody id="p-table-body"></tbody>
@@ -327,10 +327,11 @@
   </div>
 
   <div class="p-foot">
-    <b>Excluded from ranking</b> — no real individual quota: EMMA System (auto-assigned leads, 82.5% to target),
+    <b>Excluded from ranking</b> — no real individual quota: EMMA System (auto-assigned leads, 83.2% to target),
     Amanda Ware, Brian Herzig, Donna Carrillo, Nhel Banayad ($0 target each), Ralph Bustillo (no booked/target data on file — worth checking if inactive).
-    <br><b>No region assigned yet:</b> Joseph Mcreynolds (still shows in "All Regions", excluded from CTX/DFWT/CET). Brianne Newbro and Chauany Shivers will join CET once they have bookings — not yet visible in EMMA's Sales Report.
-    <br>Pulled from EMMA's Sales Report, May 1 – Jul 31, 2026 range, on Jul 16, 2026.
+    <br><b>No region assigned yet:</b> Joseph Mcreynolds (still shows in "All Regions", excluded from CTX/DFWT/CET).
+    <br><b>New since last refresh:</b> Brianne Newbro and Chauntelle Shivers now show bookings in EMMA and have been added to CET — note EMMA's system spelling is "Chauntelle," worth confirming against "Chauany"/"Chauny" used elsewhere.
+    <br>Pulled from EMMA's Sales Report, May 1 – Jul 31, 2026 range, on Jul 17, 2026.
   </div>
 
 </div>
@@ -338,44 +339,46 @@
 <script>
 (function(){
   var reps = [
-    ["Nicole Tolete", 265355.50, 341250.00, 37947.25, "CET"],
-    ["Lukas Konrad", 140992.50, 222250.00, 40628.75, "CTX"],
-    ["Joanna Ballon", 260999.50, 341250.00, 40125.25, "CET"],
-    ["Chris Beattie", 98358.50, 120750.00, 11195.75, "DFWT"],
-    ["Jules Nicolas", 612506.45, 525000.00, -43753.22, "CET"],
-    ["Nicholas Dagel", 151232.50, 222250.00, 35508.75, "CTX"],
-    ["Danah 2Celestial", 386166.62, 525000.00, 69416.69, "CET"],
-    ["Amy Arbasa", 361277.00, 393750.00, 16236.50, "CET"],
-    ["Arden 2Asilo", 245040.00, 341250.00, 48105.00, "CET"],
-    ["Sergio Buenrostro", 115054.00, 120750.00, 2848.00, "CTX"],
-    ["Khevan Dueck", 72143.50, 120750.00, 24303.25, "DFWT"],
-    ["Jespah Lara", 188731.75, 393750.00, 102509.13, "CTX"],
-    ["Chris Anderson", 114353.50, 120750.00, 3198.25, "CTX"],
-    ["Zachary Krodel", 259938.00, 222250.00, -18844.00, "DFWT"],
-    ["Zhang Pammit", 460484.50, 525000.00, 32257.75, "CET"],
-    ["Hector Zavala", 156046.50, 131250.00, -12398.25, "CTX"],
-    ["Frank Williams", 86884.00, 120750.00, 16933.00, "CTX"],
-    ["Erik Orama", 129861.50, 222250.00, 46194.25, "DFWT"],
-    ["Jeline 2Lavarias", 237665.50, 341250.00, 51792.25, "CET"],
-    ["Joel Villatoro", 234805.00, 222250.00, -6277.50, "CTX"],
-    ["Landon Vaughan", 137975.50, 201250.00, 31637.25, "DFWT"],
-    ["Daniel Behseresht", 247358.50, 222250.00, -12554.25, "CTX"],
-    ["Joseph Mcreynolds", 70814.50, 59500.00, -5657.25, ""],
-    ["Grant Hardison", 86231.50, 120750.00, 17259.25, "DFWT"],
-    ["Alexander Tran", 150570.00, 131250.00, -9660.00, "CTX"],
-    ["Calvin Hughes", 169291.75, 120750.00, -24270.88, "CTX"],
-    ["Rance Pope", 110140.56, 89250.00, -10445.28, "CTX"],
-    ["Therese Ablang", 82913.00, 80500.00, -1206.50, "CET"],
-    ["Garrison Cobe", 154685.00, 222250.00, 33782.50, "CTX"],
-    ["Jack Davis", 130383.50, 145250.00, 7433.25, "DFWT"],
-    ["Dustin Street", 51441.50, 120750.00, 34654.25, "CTX"],
-    ["Cameron Klepac", 54268.00, 89250.00, 17491.00, "CTX"],
-    ["Shane Heaberlin", 12458.00, 19250.00, 3396.00, "DFWT"],
-    ["Steven Anderson", 5866.00, 19250.00, 6692.00, "DFWT"],
-    ["Jevic 3Lazanas", 2191.00, 87500.00, 42654.50, "CET"]
+    ["Nicole Tolete", 273183.50, 341250.00, 36651.19, "CET"],
+    ["Lukas Konrad", 140512.50, 222250.00, 44012.50, "CTX"],
+    ["Joanna Ballon", 264794.50, 341250.00, 41168.35, "CET"],
+    ["Chris Beattie", 100796.50, 120750.00, 10744.19, "DFWT"],
+    ["Jules Nicolas", 631329.45, 525000.00, -57254.32, "CET"],
+    ["Nicholas Dagel", 151232.50, 222250.00, 38240.19, "CTX"],
+    ["Danah 2Celestial", 386166.62, 525000.00, 74756.44, "CET"],
+    ["Amy Arbasa", 371390.00, 393750.00, 12040.00, "CET"],
+    ["Arden 2Asilo", 258746.00, 341250.00, 44425.23, "CET"],
+    ["Sergio Buenrostro", 117374.00, 120750.00, 1817.85, "CTX"],
+    ["Khevan Dueck", 72143.50, 120750.00, 26172.73, "DFWT"],
+    ["Jespah Lara", 191020.75, 393750.00, 109161.90, "CTX"],
+    ["Chris Anderson", 122468.00, 120750.00, -925.08, "CTX"],
+    ["Zachary Krodel", 259534.00, 222250.00, -20076.00, "DFWT"],
+    ["Zhang Pammit", 469745.50, 525000.00, 29752.42, "CET"],
+    ["Hector Zavala", 141865.50, 131250.00, -5716.04, "CTX"],
+    ["Frank Williams", 88532.00, 120750.00, 17348.15, "CTX"],
+    ["Erik Orama", 132181.50, 222250.00, 48498.42, "DFWT"],
+    ["Jeline 2Lavarias", 236793.50, 341250.00, 56245.81, "CET"],
+    ["Joel Villatoro", 238211.50, 222250.00, -8594.65, "CTX"],
+    ["Landon Vaughan", 139945.50, 201250.00, 33010.12, "DFWT"],
+    ["Daniel Behseresht", 247358.50, 222250.00, -13519.96, "CTX"],
+    ["Joseph Mcreynolds", 70822.25, 59500.00, -6096.60, ""],
+    ["Grant Hardison", 90827.50, 120750.00, 16112.12, "DFWT"],
+    ["Alexander Tran", 159838.00, 131250.00, -15393.54, "CTX"],
+    ["Calvin Hughes", 173545.25, 120750.00, -28428.21, "CTX"],
+    ["Rance Pope", 110140.56, 89250.00, -11248.76, "CTX"],
+    ["Therese Ablang", 82913.00, 80500.00, -1299.31, "CET"],
+    ["Garrison Cobe", 158313.00, 222250.00, 34427.62, "CTX"],
+    ["Jack Davis", 136036.50, 145250.00, 4961.12, "DFWT"],
+    ["Dustin Street", 51441.50, 120750.00, 37319.96, "CTX"],
+    ["Cameron Klepac", 54268.00, 89250.00, 18836.46, "CTX"],
+    ["Shane Heaberlin", 12458.00, 19250.00, 3657.23, "DFWT"],
+    ["Steven Anderson", 6547.00, 19250.00, 6840.08, "DFWT"],
+    ["Jevic 3Lazanas", 5328.00, 56000.00, 27284.92, "CET"],
+    ["Chauntelle Shivers", 2558.00, 56000.00, 28776.46, "CET"],
+    ["Brianne Newbro", 843.00, 56000.00, 29699.92, "CET"]
   ];
 
-  var WEEKS_ELAPSED = 11; // May 1 -> Jul 16 = 77 days
+  var WEEKS_ELAPSED = 78 / 7; // May 1 -> Jul 17 = 78 days
   var tierRank = { red:0, yellow:1, green:2, superGreen:3 };
   var tierLabel = { red:"Red — not close", yellow:"Yellow — close, needs to accelerate", green:"Green — pace on track", superGreen:"Super Green — target already hit" };
 
@@ -444,9 +447,9 @@
 
     var tipHtml = "<b>" + d.name + "</b><br>" +
       "Booked: <b>" + money(d.booked) + "</b> / Target: <b>" + money(d.target) + "</b><br>" +
-      "Avg pace, last 11 wks: <b>" + money(d.avgPace) + "</b>/wk<br>" +
+      "Avg pace, days elapsed: <b>" + money(d.avgPace) + "</b>/wk<br>" +
       (d.neededPerWeek > 0
-        ? "Needed, final 2 wks: <b>" + money(d.neededPerWeek) + "</b>/wk"
+        ? "Needed, remaining days: <b>" + money(d.neededPerWeek) + "</b>/wk"
         : "Already " + money(Math.abs(d.neededPerWeek) * 2) + " past target") +
       "<span class='p-tip-tier'>" + tierLabel[d.tier] + "</span>";
 
